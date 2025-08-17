@@ -1,0 +1,24 @@
+version: 2
+
+models:
+  - name: daily_wallets_balance
+    description: "Calculates the daily balance for each Bitcoin wallet based on their transaction history. Each row represents a wallet's balance at the end of a specific day on which they had transaction activity."
+    data_tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - day
+              - address
+    columns:
+      - name: day
+        description: "The specific day for the balance record."
+        data_tests:
+          - not_null
+      - name: address
+        description: "The Bitcoin wallet address."
+        data_tests:
+          - not_null
+      - name: balance
+        description: "The total balance of the wallet in satoshis at the end of the day."
+        data_tests:
+          - not_null
